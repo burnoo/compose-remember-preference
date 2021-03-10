@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.burnoo.compose.rememberpreference.sample.ui.theme.ComposerememberpreferenceTheme
-import dev.burnoo.compose.rememberpreferences.rememberIntPreference
-import dev.burnoo.compose.rememberpreferences.rememberStringPreference
+import dev.burnoo.compose.rememberpreference.rememberIntPreference
+import dev.burnoo.compose.rememberpreference.rememberStringPreference
 
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {

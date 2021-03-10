@@ -1,4 +1,4 @@
-package dev.burnoo.compose.rememberpreferences
+package dev.burnoo.compose.rememberpreference
 
 import android.content.Context
 import androidx.compose.runtime.Composable
