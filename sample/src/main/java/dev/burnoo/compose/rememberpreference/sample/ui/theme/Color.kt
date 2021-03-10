@@ -1,4 +1,4 @@
-package dev.burnoo.rememberpreference.sample.ui.theme
+package dev.burnoo.compose.rememberpreference.sample.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

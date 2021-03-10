@@ -2,6 +2,7 @@
 buildscript {
     ext {
         compose_version = '1.0.0-beta01'
+        datastore_version = '1.0.0-alpha07'
     }
     repositories {
         google()

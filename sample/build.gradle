@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "dev.burnoo.rememberpreference"
+        applicationId "dev.burnoo.compose.rememberpreference.sample"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -42,6 +42,7 @@ android {
 
 dependencies {
 
+    implementation project(":lib")
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
