@@ -1,4 +1,4 @@
-package dev.burnoo.rememberpreference
+package dev.burnoo.rememberpreference.sample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,7 +8,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import dev.burnoo.rememberpreference.ui.theme.ComposerememberpreferenceTheme
+import dev.burnoo.rememberpreference.sample.ui.theme.ComposerememberpreferenceTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

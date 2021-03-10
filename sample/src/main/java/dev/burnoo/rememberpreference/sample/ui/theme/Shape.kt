@@ -1,4 +1,4 @@
-package dev.burnoo.rememberpreference.ui.theme
+package dev.burnoo.rememberpreference.sample.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
