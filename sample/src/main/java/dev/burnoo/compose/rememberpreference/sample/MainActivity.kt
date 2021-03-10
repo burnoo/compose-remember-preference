@@ -20,18 +20,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.burnoo.compose.rememberpreference.sample.ui.theme.ComposerememberpreferenceTheme
 import dev.burnoo.compose.rememberpreference.rememberIntPreference
 import dev.burnoo.compose.rememberpreference.rememberStringPreference
+import dev.burnoo.compose.rememberpreference.sample.ui.theme.AppTheme
 
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposerememberpreferenceTheme {
+            AppTheme {
                 Surface(color = MaterialTheme.colors.background) {
                     App()
                 }
@@ -74,18 +73,5 @@ fun App() {
 fun Clicker(count: Int = 0, onClick: () -> Unit = {}) {
     Button(onClick = onClick) {
         Text(text = count.toString())
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposerememberpreferenceTheme {
-        Greeting("Android")
     }
 }
