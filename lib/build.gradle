@@ -1,10 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'maven'
+    id 'maven-publish'
 }
-
-group = 'com.github.burnoo'
 
 android {
     compileSdkVersion 30
@@ -19,6 +17,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -31,8 +35,20 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
         kotlinCompilerVersion '1.4.30'
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.burnoo.compose'
+                artifactId = 'remember-preference'
+                version = '0.1.0'
+            }
+        }
     }
 }
 
