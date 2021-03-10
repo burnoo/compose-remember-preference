@@ -28,7 +28,7 @@ private val Context.dataStore by preferencesDataStore(name = "ComposableDataStor
 fun rememberIntPreference(
     keyName: String,
     initialValue: Int? = null,
-    defaultValue: Int? = null
+    defaultValue: Int? = null,
 ): MutableState<Int?> = rememberPreference(
     keyName,
     initialValue,
@@ -40,7 +40,7 @@ fun rememberIntPreference(
 fun rememberIntPreference(
     keyName: String,
     initialValue: Int,
-    defaultValue: Int
+    defaultValue: Int,
 ): MutableState<Int> = rememberPreference(
     keyName,
     initialValue,
@@ -52,7 +52,7 @@ fun rememberIntPreference(
 fun rememberDoublePreference(
     keyName: String,
     initialValue: Double? = null,
-    defaultValue: Double? = null
+    defaultValue: Double? = null,
 ): MutableState<Double?> = rememberPreference(
     keyName,
     initialValue,
@@ -64,7 +64,7 @@ fun rememberDoublePreference(
 fun rememberDoublePreference(
     keyName: String,
     initialValue: Double,
-    defaultValue: Double
+    defaultValue: Double,
 ): MutableState<Double> = rememberPreference(
     keyName,
     initialValue,
@@ -76,7 +76,7 @@ fun rememberDoublePreference(
 fun rememberStringPreference(
     keyName: String,
     initialValue: String? = null,
-    defaultValue: String? = null
+    defaultValue: String? = null,
 ): MutableState<String?> = rememberPreference(
     keyName,
     initialValue,
@@ -89,7 +89,7 @@ fun rememberStringPreference(
 fun rememberStringPreference(
     keyName: String,
     initialValue: String,
-    defaultValue: String
+    defaultValue: String,
 ): MutableState<String> = rememberPreference(
     keyName,
     initialValue,
@@ -102,7 +102,7 @@ fun rememberStringPreference(
 fun rememberBooleanPreference(
     keyName: String,
     initialValue: Boolean? = null,
-    defaultValue: Boolean? = null
+    defaultValue: Boolean? = null,
 ): MutableState<Boolean?> = rememberPreference(
     keyName,
     initialValue,
@@ -114,7 +114,7 @@ fun rememberBooleanPreference(
 fun rememberBooleanPreference(
     keyName: String,
     initialValue: Boolean,
-    defaultValue: Boolean
+    defaultValue: Boolean,
 ): MutableState<Boolean> = rememberPreference(
     keyName,
     initialValue,
@@ -126,7 +126,7 @@ fun rememberBooleanPreference(
 fun rememberFloatPreference(
     keyName: String,
     initialValue: Float? = null,
-    defaultValue: Float? = null
+    defaultValue: Float? = null,
 ): MutableState<Float?> = rememberPreference(
     keyName,
     initialValue,
@@ -138,7 +138,7 @@ fun rememberFloatPreference(
 fun rememberFloatPreference(
     keyName: String,
     initialValue: Float,
-    defaultValue: Float
+    defaultValue: Float,
 ): MutableState<Float> = rememberPreference(
     keyName,
     initialValue,
@@ -150,7 +150,7 @@ fun rememberFloatPreference(
 fun rememberLongPreference(
     keyName: String,
     initialValue: Long? = null,
-    defaultValue: Long? = null
+    defaultValue: Long? = null,
 ): MutableState<Long?> = rememberPreference(
     keyName,
     initialValue,
@@ -162,7 +162,7 @@ fun rememberLongPreference(
 fun rememberLongPreference(
     keyName: String,
     initialValue: Long,
-    defaultValue: Long
+    defaultValue: Long,
 ): MutableState<Long> = rememberPreference(
     keyName,
     initialValue,
@@ -174,7 +174,7 @@ fun rememberLongPreference(
 fun rememberStringSetPreference(
     keyName: String,
     initialValue: Set<String>? = null,
-    defaultValue: Set<String>? = null
+    defaultValue: Set<String>? = null,
 ): MutableState<Set<String>?> = rememberPreference(
     keyName,
     initialValue,
@@ -187,7 +187,7 @@ fun rememberStringSetPreference(
 fun rememberStringSetPreference(
     keyName: String,
     initialValue: Set<String>,
-    defaultValue: Set<String>
+    defaultValue: Set<String>,
 ): MutableState<Set<String>> = rememberPreference(
     keyName,
     initialValue,
@@ -200,7 +200,7 @@ private inline fun <reified T, reified NNT : T> rememberPreference(
     keyName: String,
     initialValue: T,
     defaultValue: T,
-    getPreferencesKey: (keyName: String) -> Preferences.Key<NNT>
+    getPreferencesKey: (keyName: String) -> Preferences.Key<NNT>,
 ): MutableState<T> {
     val currentState: MutableState<PreferenceEntry<T>> =
         remember { mutableStateOf(PreferenceEntry.NotLoaded()) }
