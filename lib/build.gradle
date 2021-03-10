@@ -44,8 +44,8 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.burnoo.compose'
-                artifactId = 'remember-preference'
+                groupId = 'com.github.burnoo'
+                artifactId = 'compose-remember-preference'
                 version = '0.1.0'
             }
         }
