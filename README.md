@@ -36,7 +36,7 @@ fun OnboardingExample() {
 }
 ```
 
-## Demo
+## Demo ([source](https://github.com/burnoo/compose-remember-preference/blob/master/sample/src/main/java/dev/burnoo/compose/rememberpreference/sample/MainActivity.kt))
 ![demo](https://user-images.githubusercontent.com/17478192/110863632-430a9c80-82c1-11eb-9381-cc415f3fa505.gif)
 
 ## Supported types
