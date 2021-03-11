@@ -1,3 +1,13 @@
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+    from android.sourceSets.main.kotlin.srcDirs
+}
+artifacts {
+    archives androidSourcesJar
+}
+
+
 File localProperties = project.rootProject.file('local.properties')
 Properties properties = new Properties()
 def isLocal = localProperties.exists()
@@ -22,6 +32,8 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
+                artifact androidSourcesJar
+
                 groupId = 'dev.burnoo'
                 artifactId = 'compose-remember-preference'
                 version = lib_version
@@ -48,16 +60,6 @@ afterEvaluate {
                         connection = 'scm:git:github.com/burnoo/compose-remember-preference.git'
                         developerConnection = 'scm:git:ssh://github.com/burnoo/compose-remember-preference.git'
                         url = 'https://github.com/burnoo/compose-remember-preference/tree/master'
-                    }
-                    withXml {
-                        def dependenciesNode = asNode().appendNode('dependencies')
-
-                        project.configurations.implementation.allDependencies.each {
-                            def dependencyNode = dependenciesNode.appendNode('dependency')
-                            dependencyNode.appendNode('groupId', it.group)
-                            dependencyNode.appendNode('artifactId', it.name)
-                            dependencyNode.appendNode('version', it.version)
-                        }
                     }
                 }
             }
