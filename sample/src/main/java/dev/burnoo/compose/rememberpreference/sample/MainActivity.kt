@@ -57,15 +57,21 @@ fun App() {
             .padding(24.dp)
     ) {
         Clicker(count, onClick = { count++ })
-        AnimatedVisibility(visible = text != null) {
-            TextField(
-                value = text.orEmpty(),
-                onValueChange = setText,
-                modifier = Modifier
-                    .padding(top = 30.dp)
-                    .fillMaxWidth()
-            )
-        }
+        Input(text, setText)
+    }
+}
+
+@ExperimentalAnimationApi
+@Composable
+fun Input(text: String? = "Hello!", setText: (String) -> Unit = {}) {
+    AnimatedVisibility(visible = text != null) {
+        TextField(
+            value = text.orEmpty(),
+            onValueChange = setText,
+            modifier = Modifier
+                .padding(top = 30.dp)
+                .fillMaxWidth()
+        )
     }
 }
 
