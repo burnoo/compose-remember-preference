@@ -12,7 +12,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "0.1.1"
+        versionName lib_version
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -34,9 +34,6 @@ android {
     buildFeatures {
         compose true
     }
-    composeOptions {
-        kotlinCompilerVersion '1.4.30'
-    }
 }
 
 afterEvaluate {
@@ -44,9 +41,9 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.burnoo'
+                groupId = 'dev.burnoo'
                 artifactId = 'compose-remember-preference'
-                version = '0.1.1'
+                version = lib_version
             }
         }
     }

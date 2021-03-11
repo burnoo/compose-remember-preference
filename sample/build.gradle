@@ -34,9 +34,6 @@ android {
     buildFeatures {
         compose true
     }
-    composeOptions {
-        kotlinCompilerVersion '1.4.30'
-    }
 }
 
 dependencies {
