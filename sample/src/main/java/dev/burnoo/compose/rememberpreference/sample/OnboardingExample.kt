@@ -8,7 +8,7 @@ import dev.burnoo.compose.rememberpreference.rememberBooleanPreference
 @Composable
 fun OnboardingExample() {
     var isOnboardingCompleted by rememberBooleanPreference(
-        keyName = "onboardingKey",
+        keyName = "onboardingKey", // preference is stored using this key
         initialValue = null, // returned before preference is loaded
         defaultValue = false, // returned when preference is not set yet
     )
