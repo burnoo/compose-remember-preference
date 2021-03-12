@@ -41,14 +41,14 @@ fun OnboardingExample() {
 
 ## Supported types
 (the same as DataStore preferences)
-- `String` - `rememberStringByPreference`
-- `Int` - `rememberIntByPreference`
-- `Boolean` - `rememberBooleanByPreference`
-- `Float` - `rememberFloatByPreference`
-- `Double` - `rememberDoubleByPreference`
-- `Float` - `rememberFloatByPreference`
-- `Long` - `rememberLongByPreference`
-- `String<Set>` - `rememberStringSetByPreference`
+- `String` - `rememberStringPreference`
+- `Int` - `rememberIntPreference`
+- `Boolean` - `rememberBooleanPreference`
+- `Float` - `rememberFloatPreference`
+- `Double` - `rememberDoublePreference`
+- `Float` - `rememberFloatPreference`
+- `Long` - `rememberLongPreference`
+- `String<Set>` - `rememberStringSetPreference`
 
 ## Nullability
 Each function has two versions nullable and non nullable. When `initailValue` and `defaultValue` are non nullable it returns `MutableState<T>` otherwise `MutableState<T?>`
