@@ -51,7 +51,9 @@ fun OnboardingExample() {
 - `String<Set>` - `rememberStringSetPreference`
 
 ## Nullability
-Each function has two versions nullable and non nullable. When `initailValue` and `defaultValue` are non nullable it returns `MutableState<T>` otherwise `MutableState<T?>`
+Each function has two versions - nullable and non nullable. When `initailValue` and `defaultValue` are non nullable it returns `MutableState<T>` otherwise `MutableState<T?>`:
+- `(keyName: String, initialValue: T, defaultValue: T) -> MutableState<T>`
+- `(keyName: String, initialValue: T? = null, defaultValue: T? = null) -> MutableState<T?>`
 ```kotlin
 @Composable
 fun NullabilityExample() {
