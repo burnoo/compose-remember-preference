@@ -1,5 +1,5 @@
 # compose-remember-preference
-Jetpack Compose library for remembering state persistently, based on DataStore preferences.
+Jetpack Compose library for remembering state persistently, based on DataStore preferences. Basically it's persistent version of `remember { mutableStateOf(x) }`.
 
 ## Getting started
 Library is distributed through Maven Central. To use it you need to add following dependancy to your module `build.gradle`:
