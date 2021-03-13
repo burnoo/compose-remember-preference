@@ -1,4 +1,6 @@
 # compose-remember-preference
+[![Maven Central](https://img.shields.io/maven-central/v/dev.burnoo/compose-remember-preference)](https://search.maven.org/search?q=dev.burnoo.compose-remember-preference)
+
 Jetpack Compose library for remembering state persistently, based on DataStore preferences. Basically it's persistent version of `remember { mutableStateOf(x) }`.
 
 ## Getting started
