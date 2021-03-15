@@ -48,7 +48,6 @@ fun OnboardingExample() {
 - `Boolean` - `rememberBooleanPreference`
 - `Float` - `rememberFloatPreference`
 - `Double` - `rememberDoublePreference`
-- `Float` - `rememberFloatPreference`
 - `Long` - `rememberLongPreference`
 - `String<Set>` - `rememberStringSetPreference`
 
