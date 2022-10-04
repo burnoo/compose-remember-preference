@@ -44,4 +44,9 @@ dependencies {
 
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.datastore:datastore-preferences:$datastore_version"
+
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
+    androidTestImplementation("androidx.compose.foundation:foundation:$compose_version")
+    androidTestImplementation("io.kotest:kotest-assertions-core:5.5.0")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
 }
