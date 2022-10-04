@@ -221,14 +221,19 @@ private inline fun <reified T, reified NNT : T> rememberPreference(
                 is PreferenceEntry.NotEmpty -> currentStateValue.value
             }
             set(value) {
+                val rollbackValue = currentState.value
                 currentState.value = PreferenceEntry.fromNullable(value)
                 coroutineScope.launch {
-                    context.dataStore.edit {
-                        if (value != null) {
-                            it[key] = value as NNT
-                        } else {
-                            it.remove(key)
+                    try {
+                        context.dataStore.edit {
+                            if (value != null) {
+                                it[key] = value as NNT
+                            } else {
+                                it.remove(key)
+                            }
                         }
+                    } catch (e: Exception) {
+                        currentState.value = rollbackValue
                     }
                 }
             }
