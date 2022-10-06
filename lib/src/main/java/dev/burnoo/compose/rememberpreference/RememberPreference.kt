@@ -203,22 +203,19 @@ private inline fun <reified T, reified NNT : T> rememberPreference(
     getPreferencesKey: (keyName: String) -> Preferences.Key<NNT>,
 ): MutableState<T> {
     val currentState: MutableState<PreferenceEntry<T>> =
-        remember { mutableStateOf(PreferenceEntry.NotLoaded()) }
+        remember { mutableStateOf(PreferenceEntry.NotLoaded) }
     val coroutineScope = rememberCoroutineScope()
     val key: Preferences.Key<NNT> = getPreferencesKey(keyName)
     val context = LocalContext.current
+    val currentStateValue = currentState.value
     context.dataStore.data
         .map { PreferenceEntry.fromNullable(it[key]) }
-        .onEach {
-            if (currentState.value is PreferenceEntry.NotLoaded) {
-                currentState.value = it
-            }
-        }
-        .collectAsState(initial = PreferenceEntry.NotLoaded())
+        .onEach { currentState.value = it }
+        .collectAsState(initial = PreferenceEntry.NotLoaded)
 
     return object : MutableState<T> {
         override var value: T
-            get() = when (val currentStateValue = currentState.value) {
+            get() = when (currentStateValue) {
                 is PreferenceEntry.NotLoaded -> initialValue
                 is PreferenceEntry.Empty -> defaultValue
                 is PreferenceEntry.NotEmpty -> currentStateValue.value
@@ -243,11 +240,11 @@ private inline fun <reified T, reified NNT : T> rememberPreference(
 
 private sealed class PreferenceEntry<out T> {
     data class NotEmpty<T>(val value: T) : PreferenceEntry<T>()
-    class Empty<T> : PreferenceEntry<T>()
-    class NotLoaded<T> : PreferenceEntry<T>()
+    object Empty : PreferenceEntry<Nothing>()
+    object NotLoaded : PreferenceEntry<Nothing>()
 
     companion object {
         inline fun <reified T> fromNullable(value: T?) =
-            if (value == null) Empty() else NotEmpty(value)
+            if (value == null) Empty else NotEmpty(value)
     }
 }
