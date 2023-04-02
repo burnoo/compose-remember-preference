@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdk = 33
-    buildToolsVersion = "30.0.3"
+    buildToolsVersion = "33.0.1"
 
     defaultConfig {
         applicationId "dev.burnoo.compose.rememberpreference.sample"
