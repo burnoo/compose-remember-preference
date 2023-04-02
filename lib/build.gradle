@@ -8,8 +8,8 @@ plugins {
 apply from: 'maven-publishing.gradle'
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "30.0.3"
+    compileSdk = 33
+    buildToolsVersion = "33.0.1"
 
     defaultConfig {
         minSdkVersion 21
@@ -38,6 +38,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_compiler_version
     }
+    namespace 'dev.burnoo.compose.rememberpreference'
 }
 
 dependencies {
