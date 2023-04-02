@@ -36,6 +36,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_compiler_version
     }
+    namespace 'dev.burnoo.compose.rememberpreference.sample'
 }
 
 dependencies {
