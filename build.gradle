@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        lib_version = '1.0.0'
+        lib_version = '1.0.1'
         compose_version = '1.4.0'
         compose_compiler_version = '1.4.4'
         datastore_version = '1.0.0'
