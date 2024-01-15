@@ -43,7 +43,7 @@ class RememberFloatPreferenceTest {
     }
 
     @Test
-    fun shouldRememberFloat() = runBlocking {
+    fun shouldRememberFloat(): Unit = runBlocking {
         val keyName = "float-key"
         composeTestRule.setContent {
             val float = rememberFloatPreference(

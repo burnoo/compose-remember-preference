@@ -43,7 +43,7 @@ class RememberBooleanPreferenceTest {
     }
 
     @Test
-    fun shouldRememberBoolean() = runBlocking {
+    fun shouldRememberBoolean(): Unit = runBlocking {
         val keyName = "boolean-key"
         composeTestRule.setContent {
             val boolean = rememberBooleanPreference(

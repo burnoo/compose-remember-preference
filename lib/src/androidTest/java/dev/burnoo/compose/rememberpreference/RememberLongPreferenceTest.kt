@@ -43,7 +43,7 @@ class RememberLongPreferenceTest {
     }
 
     @Test
-    fun shouldRememberLong() = runBlocking {
+    fun shouldRememberLong(): Unit = runBlocking {
         val keyName = "long-key"
         composeTestRule.setContent {
             val long = rememberLongPreference(

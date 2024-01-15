@@ -44,7 +44,7 @@ class RememberStringPreferenceTest {
     }
 
     @Test
-    fun shouldRememberString() = runBlocking {
+    fun shouldRememberString(): Unit = runBlocking {
         val keyName = "string-key"
         val newText = "newText"
         composeTestRule.setContent {

@@ -43,7 +43,7 @@ class RememberIntPreferenceTest {
     }
 
     @Test
-    fun shouldRememberInt() = runBlocking {
+    fun shouldRememberInt(): Unit = runBlocking {
         val keyName = "int-key"
         composeTestRule.setContent {
             val int = rememberIntPreference(

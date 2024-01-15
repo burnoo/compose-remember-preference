@@ -43,7 +43,7 @@ class RememberDoublePreferenceTest {
     }
 
     @Test
-    fun shouldRememberDouble() = runBlocking {
+    fun shouldRememberDouble(): Unit = runBlocking {
         val keyName = "double-key"
         composeTestRule.setContent {
             val double = rememberDoublePreference(
