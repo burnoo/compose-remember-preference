@@ -1,13 +1,3 @@
-task androidSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-    from android.sourceSets.main.kotlin.srcDirs
-}
-artifacts {
-    archives androidSourcesJar
-}
-
-
 File localProperties = project.rootProject.file('local.properties')
 Properties properties = new Properties()
 def isLocal = localProperties.exists()
@@ -32,7 +22,6 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                artifact androidSourcesJar
 
                 groupId = 'dev.burnoo'
                 artifactId = 'compose-remember-preference'

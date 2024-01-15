@@ -8,12 +8,12 @@ plugins {
 apply from: 'maven-publishing.gradle'
 
 android {
-    compileSdk = 33
-    buildToolsVersion = "33.0.1"
+    compileSdk = 34
+    buildToolsVersion = "34.0.0"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -39,6 +39,12 @@ android {
         kotlinCompilerExtensionVersion compose_compiler_version
     }
     namespace 'dev.burnoo.compose.rememberpreference'
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
