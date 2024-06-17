@@ -1,25 +1,14 @@
 package dev.burnoo.compose.rememberpreference
 
 import android.content.Context
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.doublePreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.floatPreferencesKey
-import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.core.stringSetPreferencesKey
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 internal val Context.dataStore by preferencesDataStore(name = "RememberPreference")
@@ -200,29 +189,46 @@ private inline fun <reified T, reified NNT : T> rememberPreference(
     keyName: String,
     initialValue: T,
     defaultValue: T,
+    crossinline getPreferencesKey: (keyName: String) -> Preferences.Key<NNT>,
+): MutableState<T> {
+    val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+    return remember {
+        preferenceMutableState(
+            coroutineScope = coroutineScope,
+            context = context,
+            keyName = keyName,
+            initialValue = initialValue,
+            defaultValue = defaultValue,
+            getPreferencesKey = getPreferencesKey
+        )
+    }
+}
+
+private inline fun <reified T, reified NNT : T> preferenceMutableState(
+    coroutineScope: CoroutineScope,
+    context: Context,
+    keyName: String,
+    initialValue: T,
+    defaultValue: T,
     getPreferencesKey: (keyName: String) -> Preferences.Key<NNT>,
 ): MutableState<T> {
-    val currentState: MutableState<PreferenceEntry<T>> =
-        remember { mutableStateOf(PreferenceEntry.NotLoaded) }
-    val coroutineScope = rememberCoroutineScope()
+    val preferenceEntryMutableState: MutableState<PreferenceEntry<T>> = mutableStateOf(PreferenceEntry.NotLoaded)
     val key: Preferences.Key<NNT> = getPreferencesKey(keyName)
-    val context = LocalContext.current
-    val currentStateValue = currentState.value
-    context.dataStore.data
-        .map { PreferenceEntry.fromNullable(it[key]) }
-        .onEach { currentState.value = it }
-        .collectAsState(initial = PreferenceEntry.NotLoaded)
+    coroutineScope.launch {
+        context.dataStore.data
+            .map { it[key] }
+            .distinctUntilChanged()
+            .map { PreferenceEntry.fromNullable(it) }
+            .collectLatest { preferenceEntryMutableState.value = it }
+    }
 
     return object : MutableState<T> {
         override var value: T
-            get() = when (currentStateValue) {
-                is PreferenceEntry.NotLoaded -> initialValue
-                is PreferenceEntry.Empty -> defaultValue
-                is PreferenceEntry.NotEmpty -> currentStateValue.value
-            }
+            get() = preferenceEntryMutableState.value.getValue(initialValue, defaultValue)
             set(value) {
-                val rollbackValue = currentState.value
-                currentState.value = PreferenceEntry.fromNullable(value)
+                val rollbackValue = preferenceEntryMutableState.value
+                preferenceEntryMutableState.value = PreferenceEntry.fromNullable(value)
                 coroutineScope.launch {
                     try {
                         context.dataStore.edit {
@@ -233,23 +239,12 @@ private inline fun <reified T, reified NNT : T> rememberPreference(
                             }
                         }
                     } catch (e: Exception) {
-                        currentState.value = rollbackValue
+                        preferenceEntryMutableState.value = rollbackValue
                     }
                 }
             }
 
         override fun component1() = value
         override fun component2(): (T) -> Unit = { value = it }
-    }
-}
-
-private sealed class PreferenceEntry<out T> {
-    data class NotEmpty<T>(val value: T) : PreferenceEntry<T>()
-    object Empty : PreferenceEntry<Nothing>()
-    object NotLoaded : PreferenceEntry<Nothing>()
-
-    companion object {
-        inline fun <reified T> fromNullable(value: T?) =
-            if (value == null) Empty else NotEmpty(value)
     }
 }
