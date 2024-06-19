@@ -7,7 +7,7 @@ Jetpack Compose library for remembering state persistently, based on DataStore p
 Library is distributed through Maven Central. To use it you need to add following dependancy to your module `build.gradle`:
 ```groovy
 dependencies {
-    implementation 'dev.burnoo:compose-remember-preference:1.0.2'
+    implementation 'dev.burnoo:compose-remember-preference:1.1.0'
 }
 ```
 To store state in `@Composable` when app is running you would use `remember { mutableStateOf(x) }`. The library comes with the same functionality, but supports data persistence, saving and restoring data using DataStore preferences. It has it owns functions that returns `MutableState`.
