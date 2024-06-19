@@ -61,6 +61,20 @@ class RememberBooleanPreferenceTest {
         preferences[booleanPreferencesKey(keyName)] shouldBe true
     }
 
+    @Test
+    fun shouldHaveNullDefaultBooleanValue(): Unit = runBlocking {
+        val keyName = "boolean-key"
+        composeTestRule.setContent {
+            val boolean = rememberBooleanPreference(
+                keyName = keyName,
+                initialValue = false,
+                defaultValue = null
+            )
+            BasicText(boolean.value.toString())
+        }
+        assertText("null")
+    }
+
     private fun assertText(text: String, index: Int = 0) {
         composeTestRule.onNode(isRoot()).onChildAt(index).assertTextEquals(text)
     }

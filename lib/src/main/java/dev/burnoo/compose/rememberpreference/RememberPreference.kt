@@ -6,10 +6,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 internal val Context.dataStore by preferencesDataStore(name = "RememberPreference")
 
@@ -213,22 +215,24 @@ private inline fun <reified T, reified NNT : T> preferenceMutableState(
     defaultValue: T,
     getPreferencesKey: (keyName: String) -> Preferences.Key<NNT>,
 ): MutableState<T> {
-    val preferenceEntryMutableState: MutableState<PreferenceEntry<T>> = mutableStateOf(PreferenceEntry.NotLoaded)
+    val snapshotMutableState: MutableState<T> = mutableStateOf(initialValue)
     val key: Preferences.Key<NNT> = getPreferencesKey(keyName)
     coroutineScope.launch {
         context.dataStore.data
-            .map { it[key] }
+            .map { if (it[key] == null) defaultValue else it[key] }
             .distinctUntilChanged()
-            .map { PreferenceEntry.fromNullable(it) }
-            .collectLatest { preferenceEntryMutableState.value = it }
+            .collectLatest {
+                withContext(Dispatchers.Main) {
+                    snapshotMutableState.value = it as T
+                }
+            }
     }
-
     return object : MutableState<T> {
         override var value: T
-            get() = preferenceEntryMutableState.value.getValue(initialValue, defaultValue)
+            get() = snapshotMutableState.value
             set(value) {
-                val rollbackValue = preferenceEntryMutableState.value
-                preferenceEntryMutableState.value = PreferenceEntry.fromNullable(value)
+                val rollbackValue = snapshotMutableState.value
+                snapshotMutableState.value = value
                 coroutineScope.launch {
                     try {
                         context.dataStore.edit {
@@ -239,7 +243,7 @@ private inline fun <reified T, reified NNT : T> preferenceMutableState(
                             }
                         }
                     } catch (e: Exception) {
-                        preferenceEntryMutableState.value = rollbackValue
+                        snapshotMutableState.value = rollbackValue
                     }
                 }
             }
