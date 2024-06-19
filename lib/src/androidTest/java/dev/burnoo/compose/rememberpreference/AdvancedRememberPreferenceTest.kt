@@ -37,12 +37,12 @@ class AdvancedRememberPreferenceTest {
                 initialValue = "initialText",
                 defaultValue = "defaultText"
             )
-            LaunchedEffect(Unit) {
-                context.dataStore.edit {
-                    it[stringPreferencesKey(keyName)] = newText
-                }
-            }
             BasicText(string.value)
+        }
+        runBlocking {
+            context.dataStore.edit {
+                it[stringPreferencesKey(keyName)] = newText
+            }
         }
         assertText(newText)
     }
