@@ -3,17 +3,17 @@ plugins {
     id 'kotlin-android'
     id 'maven-publish'
     id 'signing'
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.10"
 }
 
 apply from: 'maven-publishing.gradle'
 
 android {
-    compileSdk = 34
-    buildToolsVersion = "34.0.0"
+    compileSdk = 35
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 35
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -26,17 +26,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
     buildFeatures {
         compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion compose_compiler_version
     }
     namespace 'dev.burnoo.compose.rememberpreference'
     publishing {
@@ -54,6 +48,6 @@ dependencies {
 
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
     androidTestImplementation("androidx.compose.foundation:foundation:$compose_version")
-    androidTestImplementation("io.kotest:kotest-assertions-core:5.9.0")
+    androidTestImplementation("io.kotest:kotest-assertions-core:5.9.1")
     debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
 }
